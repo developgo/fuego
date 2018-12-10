@@ -25,7 +25,7 @@ func NewHamtMap() HamtMap {
 // EntrySet returns a Set of MapEntry's from the (k, v) pairs contained
 // in this map.
 // Since EntrySet returns a Set, it can be streamed with Set.Stream().
-func (m HamtMap) EntrySet() Set {
+func (m HamtMap) EntrySet() HamtSet {
 	s := NewHamtSet()
 
 	subMap := m.myMap
@@ -44,7 +44,7 @@ func (m HamtMap) EntrySet() Set {
 // Note that ValueSet() is not implemented because Values can be present
 // multiple times. This could possibly be implemented via []interface{}?
 // It also could be better to use the BiStream() proposed in this file.
-func (m HamtMap) KeySet() Set {
+func (m HamtMap) KeySet() HamtSet {
 	s := NewHamtSet()
 
 	subMap := m.myMap
@@ -57,14 +57,14 @@ func (m HamtMap) KeySet() Set {
 }
 
 // Insert inserts a value into a set.
-func (m HamtMap) Insert(k Entry, v interface{}) Map {
+func (m HamtMap) Insert(k Entry, v interface{}) HamtMap {
 	return HamtMap{
 		myMap: m.myMap.Insert(k.(hamt.Entry), v),
 	}
 }
 
 // Delete deletes a value from a set.
-func (m HamtMap) Delete(k Entry) Map {
+func (m HamtMap) Delete(k Entry) HamtMap {
 	return HamtMap{
 		myMap: m.myMap.Delete(k.(hamt.Entry)),
 	}
@@ -78,15 +78,15 @@ func (m HamtMap) Size() int {
 // FirstRest returns a key-value pair in a map and a rest of the map.
 // This method is useful for iteration.
 // The key and value would be nil if the map is empty.
-func (m HamtMap) FirstRest() (Entry, interface{}, Map) {
+func (m HamtMap) FirstRest() (Entry, interface{}, HamtMap) {
 	k, v, m2 := m.myMap.FirstRest()
 	return k, v, HamtMap{myMap: m2}
 }
 
 // Merge this map and given map.
-func (m HamtMap) Merge(n Map) Map {
+func (m HamtMap) Merge(n HamtMap) HamtMap {
 	return HamtMap{
-		myMap: m.myMap.Merge(n.(HamtMap).myMap),
+		myMap: m.myMap.Merge(n.myMap),
 	}
 }
 

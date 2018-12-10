@@ -19,7 +19,7 @@ func (s OrderedSet) Stream() Stream {
 }
 
 // Insert a value into this set.
-func (s OrderedSet) Insert(e Entry) Set {
+func (s OrderedSet) Insert(e Entry) Mutator {
 	for idx, entry := range s.slice {
 		if e.Equal(entry) {
 			// To preserve the order of items, the replacement
@@ -42,7 +42,7 @@ func (s OrderedSet) Insert(e Entry) Set {
 }
 
 // Delete a value from this set.
-func (s OrderedSet) Delete(e Entry) Set {
+func (s OrderedSet) Delete(e Entry) Mutator {
 	if e == nil {
 		panic(PanicNoSuchElement)
 	}
@@ -83,29 +83,30 @@ func (s OrderedSet) Size() int {
 
 // FirstRest returns a value in a set and a rest of the set.
 // This method is useful for iteration.
-func (s OrderedSet) FirstRest() (Entry, Set) {
+func (s OrderedSet) FirstRest() (Entry, Walker) {
 	sCopy := make([]Entry, len(s.slice)-1)
 	copy(sCopy, s.slice[1:])
 	return s.slice[0], OrderedSet{slice: sCopy}
 }
 
 // Merge 2 sets into one.
-func (s OrderedSet) Merge(t Set) Set {
-	merge := make([]Entry, len(s.slice))
-	copy(merge, s.slice)
+// TODO: this is wrong - it shouldn be part of the interface, instead it should be a flat method, without receiver.
+// func Merge(t Walker) Mutator {
+// 	merge := make([]Entry, len(s.slice))
+// 	copy(merge, s.slice)
 
-	sliceIndex := make(map[Entry]bool, len(s.slice))
-	for _, v := range s.slice {
-		sliceIndex[v] = true
-	}
+// 	sliceIndex := make(map[Entry]bool, len(s.slice))
+// 	for _, v := range s.slice {
+// 		sliceIndex[v] = true
+// 	}
 
-	for _, entry := range t.(OrderedSet).slice {
-		if !sliceIndex[entry] {
-			merge = append(merge, entry)
-		}
-	}
+// 	for _, entry := range t.slice {
+// 		if !sliceIndex[entry] {
+// 			merge = append(merge, entry)
+// 		}
+// 	}
 
-	return OrderedSet{
-		slice: merge,
-	}
-}
+// 	return OrderedSet{
+// 		slice: merge,
+// 	}
+// }

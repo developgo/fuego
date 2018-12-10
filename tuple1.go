@@ -27,7 +27,8 @@ func (t Tuple1) Arity() int {
 }
 
 // ToSet returns the elements of this tuple as a Set.
-func (t Tuple1) ToSet() Set {
-	return NewOrderedSet().
-		Insert(t.E1)
-}
+// TODO: this should not be a Set but a Sequence
+// func (t Tuple1) ToSet() Set {
+// 	return NewOrderedSet().
+// 		Insert(t.E1)
+// }

@@ -9,7 +9,7 @@ import (
 
 func TestHamtSet_Insert(t *testing.T) {
 	type fields struct {
-		mySet Set
+		mySet HamtSet
 	}
 	type args struct {
 		e Entry
@@ -18,7 +18,7 @@ func TestHamtSet_Insert(t *testing.T) {
 		name   string
 		fields fields
 		args   args
-		want   Set
+		want   HamtSet
 	}{
 		{
 			name: "Should Insert entry into Set",
@@ -58,7 +58,7 @@ func TestHamtSet_Stream(t *testing.T) {
 		},
 		{
 			name: "Should return value when one value set",
-			set:  NewHamtSet().Insert(EntryInt(1)).(HamtSet),
+			set:  NewHamtSet().Insert(EntryInt(1)),
 			want: NewStream(
 				NewSetIterator(
 					NewHamtSet().
@@ -72,7 +72,7 @@ func TestHamtSet_Stream(t *testing.T) {
 				Delete(EntryInt(1)).
 				Insert(EntryInt(3)).
 				Insert(EntryInt(1)).
-				Insert(EntryInt(2)).(HamtSet),
+				Insert(EntryInt(2)),
 			want: NewStream(
 				NewSetIterator(
 					NewHamtSet().
@@ -108,18 +108,18 @@ func TestHamtSet_Merge(t *testing.T) {
 			fields: fields{
 				set: NewHamtSet().
 					Insert(EntryInt(7)).
-					Insert(EntryInt(2)).(HamtSet),
+					Insert(EntryInt(2)),
 			},
 			args: args{
 				t: NewHamtSet().
 					Insert(EntryInt(3)).
-					Insert(EntryInt(9)).(HamtSet),
+					Insert(EntryInt(9)),
 			},
 			want: NewHamtSet().
 				Insert(EntryInt(7)).
 				Insert(EntryInt(2)).
 				Insert(EntryInt(3)).
-				Insert(EntryInt(9)).(HamtSet),
+				Insert(EntryInt(9)),
 		},
 		{
 			name: "Should merge two overlapping sets",
@@ -127,17 +127,17 @@ func TestHamtSet_Merge(t *testing.T) {
 				set: NewHamtSet().
 					Insert(EntryInt(3)).
 					Insert(EntryInt(5)).
-					Insert(EntryInt(1)).(HamtSet),
+					Insert(EntryInt(1)),
 			},
 			args: args{
 				t: NewHamtSet().
 					Insert(EntryInt(3)).
-					Insert(EntryInt(1)).(HamtSet),
+					Insert(EntryInt(1)),
 			},
 			want: NewHamtSet().
 				Insert(EntryInt(3)).
 				Insert(EntryInt(5)).
-				Insert(EntryInt(1)).(HamtSet),
+				Insert(EntryInt(1)),
 		},
 	}
 	for _, tt := range tests {
@@ -165,13 +165,13 @@ func TestHamtSet_FirstRest(t *testing.T) {
 				set: NewHamtSet().
 					Insert(EntryInt(3)).
 					Insert(EntryInt(2)).
-					Insert(EntryInt(7)).(HamtSet),
+					Insert(EntryInt(7)),
 			},
 			// note: hamt.Set entries are sorted based on their hash
 			want: EntryInt(2),
 			want1: NewHamtSet().
 				Insert(EntryInt(3)).
-				Insert(EntryInt(7)).(HamtSet),
+				Insert(EntryInt(7)),
 		},
 	}
 	for _, tt := range tests {
@@ -189,7 +189,7 @@ func TestHamtSet_FirstRest(t *testing.T) {
 
 func TestHamtSet_Size(t *testing.T) {
 	type fields struct {
-		set Set
+		set HamtSet
 	}
 	tests := []struct {
 		name   string
@@ -230,9 +230,9 @@ func TestHamtSet_Delete(t *testing.T) {
 	}
 	tests := []struct {
 		name    string
-		set     Set
+		set     HamtSet
 		args    args
-		want    Set
+		want    HamtSet
 		wantErr string
 	}{
 		{

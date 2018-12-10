@@ -22,14 +22,14 @@ func (s HamtSet) Stream() Stream {
 }
 
 // Insert inserts a value into a set.
-func (s HamtSet) Insert(e Entry) Set {
+func (s HamtSet) Insert(e Entry) Mutator {
 	return HamtSet{
 		set: s.set.Insert(e.(hamt.Entry)),
 	}
 }
 
 // Delete a value from a set.
-func (s HamtSet) Delete(e Entry) Set {
+func (s HamtSet) Delete(e Entry) Mutator {
 	if e == nil {
 		panic(PanicNoSuchElement)
 	}
@@ -45,7 +45,7 @@ func (s HamtSet) Size() int {
 
 // FirstRest returns a value in a set and a rest of the set.
 // This method is useful for iteration.
-func (s HamtSet) FirstRest() (Entry, Set) {
+func (s HamtSet) FirstRest() (Entry, Walker) {
 	e, s2 := s.set.FirstRest()
 	if e == nil {
 		return nil, NewHamtSet()
@@ -54,8 +54,9 @@ func (s HamtSet) FirstRest() (Entry, Set) {
 }
 
 // Merge merges 2 sets into one.
-func (s HamtSet) Merge(t Set) Set {
-	return HamtSet{
-		set: s.set.Merge((t.(HamtSet).set)),
-	}
-}
+// TODO: this is wrong - it shouldn be part of the interface, instead it should be a flat method, without receiver.
+// func (s HamtSet) Merge(t HamtSet) Mutator {
+// 	return HamtSet{
+// 		set: s.set.Merge((t.set)),
+// 	}
+// }

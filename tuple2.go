@@ -37,8 +37,9 @@ func (t Tuple2) Arity() int {
 }
 
 // ToSet returns the elements of this tuple as a Set.
-func (t Tuple2) ToSet() Set {
-	return NewOrderedSet().
-		Insert(t.E1).
-		Insert(t.E2)
-}
+// TODO: this should not be a Set but a Sequence
+// func (t Tuple2) ToSet() Set {
+// 	return NewOrderedSet().
+// 		Insert(t.E1).
+// 		Insert(t.E2)
+// }

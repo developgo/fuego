@@ -23,6 +23,7 @@ func (t Tuple0) Arity() int {
 }
 
 // ToSet returns an empty Set.
-func (t Tuple0) ToSet() Set {
-	return NewOrderedSet()
-}
+// TODO: this should not be a Set but a Sequence
+// func (t Tuple0) ToSet() Set {
+// 	return NewOrderedSet()
+// }

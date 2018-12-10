@@ -14,11 +14,11 @@ type Iterator interface {
 
 // SetIterator is an Iterator over a Set.
 type SetIterator struct {
-	set Set
+	set Walker
 }
 
 // NewSetIterator creates a new NewSetIterator.
-func NewSetIterator(s Set) Iterator {
+func NewSetIterator(s Walker) Iterator {
 	if s == nil || s.Size() == 0 {
 		return nil
 	}
@@ -57,7 +57,7 @@ func (si SetIterator) Reverse() Iterator {
 
 	reverse := NewOrderedSet()
 	for i := len(values) - 1; i >= 0; i-- {
-		reverse = reverse.Insert(values[i]).(OrderedSet)
+		reverse = reverse.Insert(values[i])
 	}
 
 	return SetIterator{

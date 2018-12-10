@@ -1,11 +1,30 @@
 package fuego
 
-// A Set is an interface for all Set kinds.
+// Ideas of interfaces:
+// Walker (FirstRest), Mutator (Insert, Delete, Merge), Sizer, Streamer
+// Should only create them when they are required - this is not Java
+
+// A Set is a composition of interfaces for all Set kinds.
 type Set interface {
-	Stream() Stream
-	Insert(e Entry) Set
-	Delete(e Entry) Set
+	Mutator
+	Walker
+	Streamer
+}
+
+type Mutator interface {
+	Insert(e Entry) Mutator
+	Delete(e Entry) Mutator
+}
+
+type Walker interface {
+	FirstRest() (Entry, Walker)
+	Sizer
+}
+
+type Sizer interface {
 	Size() int
-	FirstRest() (Entry, Set)
-	Merge(t Set) Set
+}
+
+type Streamer interface {
+	Stream() Stream
 }
