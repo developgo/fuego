@@ -19,7 +19,7 @@ func ExampleStream_GroupBy() {
 		Insert(EntryInt(9), "nine")
 
 	resMap := map[ƒ.Entry]interface{}{}
-	m.EntrySet().
+	m.(ƒ.Retriever).EntrySet().(ƒ.Streamer).
 		Stream().
 		GroupBy(func(i ƒ.Entry) ƒ.Entry {
 			return i.(ƒ.MapEntry).K.(EntryInt) & 1

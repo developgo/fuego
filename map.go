@@ -15,7 +15,6 @@ package fuego
 type Map interface {
 	MapMutator
 	MapWalker
-	Retriever
 }
 
 type MapMutator interface {
@@ -24,13 +23,20 @@ type MapMutator interface {
 }
 
 type MapWalker interface {
-	FirstRest() (k Entry, v interface{}, rest Map)
+	FirstRest() (k Entry, v interface{}, rest Map) // take in a Tuple as parms instead? This might enable to further abstract the interface and make it common to Set's Mutator
 	Sizer
 }
 
 type Retriever interface {
-	Get(k Entry) interface{}         // TODO return Maybe instead of Entry
+	EntrySet() Walker
+	KeySet() Walker
+}
+type Holder interface {
 	Has(k Entry, v interface{}) bool // TODO return EntryBool????
 	HasKey(k Entry) bool             // TODO return EntryBool????
 	HasValue(v interface{}) bool     // TODO return EntryBool????
+}
+
+type Getter interface {
+	Get(k Entry) interface{} // TODO return Maybe instead of Entry
 }

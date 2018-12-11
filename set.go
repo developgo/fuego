@@ -8,7 +8,6 @@ package fuego
 type Set interface {
 	Mutator
 	Walker
-	Streamer
 }
 
 type Mutator interface {

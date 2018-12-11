@@ -55,13 +55,13 @@ func (si SetIterator) Reverse() Iterator {
 		values = append(values, e)
 	}
 
-	reverse := NewOrderedSet()
+	reverse := NewOrderedSet().(Mutator)
 	for i := len(values) - 1; i >= 0; i-- {
 		reverse = reverse.Insert(values[i])
 	}
 
 	return SetIterator{
-		set: reverse,
+		set: reverse.(Walker),
 	}
 }
 

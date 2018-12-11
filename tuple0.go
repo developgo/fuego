@@ -17,8 +17,13 @@ func (t Tuple0) Equal(o Tuple) bool {
 	return false
 }
 
-// Arity is the number of elements in this tuple.
-func (t Tuple0) Arity() int {
+// Size of this tuple.
+func (t Tuple0) Size() int {
+	return t.arity()
+}
+
+// arity is the number of elements in this tuple.
+func (t Tuple0) arity() int {
 	return 0
 }
 

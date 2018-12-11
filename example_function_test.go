@@ -27,7 +27,7 @@ func ExampleBiFunction() {
 		Insert(EntryString("twelve")).
 		Insert(EntryString("one")).
 		Insert(EntryString("six")).
-		Insert(EntryString("three")).
+		Insert(EntryString("three")).(fuego.Streamer).
 		Stream().
 		Reduce(concatenateStringsBiFunc)
 

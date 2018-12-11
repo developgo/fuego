@@ -31,8 +31,13 @@ func (t Tuple2) Equal(o Tuple) bool {
 			(t.E2 != nil && t.E2.Equal(oT.E2)))
 }
 
-// Arity is the number of elements in this tuple.
-func (t Tuple2) Arity() int {
+// Size of this tuple.
+func (t Tuple2) Size() int {
+	return t.arity()
+}
+
+// arity is the number of elements in this tuple.
+func (t Tuple2) arity() int {
 	return 2
 }
 

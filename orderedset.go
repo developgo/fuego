@@ -5,8 +5,8 @@ type OrderedSet struct {
 	slice []Entry
 }
 
-// NewOrderedSet creates a new OrderedSet
-func NewOrderedSet() OrderedSet {
+// NewOrderedSet creates a new Set
+func NewOrderedSet() Set {
 	return OrderedSet{
 		slice: []Entry{},
 	}
